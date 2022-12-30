@@ -1,0 +1,26 @@
+{
+	"name": "TB_UNIDADE_CELINA",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SqlServer1_TESTE",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [
+			{
+				"name": "ID_UNIDADE",
+				"type": "varchar"
+			},
+			{
+				"name": "DESC_UNIDADE",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "UNIDADE"
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

@@ -1,0 +1,103 @@
+{
+	"name": "CARGACRMFABRICIO",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DS_CRM_FABRICIO",
+						"type": "DatasetReference"
+					},
+					"name": "SRCCRMFABRICIO"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "saidapqcrmfabricio",
+						"type": "DatasetReference"
+					},
+					"name": "saidacrmpqfabricio"
+				},
+				{
+					"dataset": {
+						"referenceName": "saidacrmscvfabricio",
+						"type": "DatasetReference"
+					},
+					"name": "saidacrmcsvfabricio"
+				}
+			],
+			"transformations": [
+				{
+					"name": "SelecionarColunasFabricio"
+				},
+				{
+					"name": "splitcrmfabricio"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          id as string,",
+				"          primeiro_nome as string,",
+				"          ultimo_nome as string,",
+				"          email as string,",
+				"          sexo as string,",
+				"          cidade as string,",
+				"          pais as string,",
+				"          codigo_pais as string,",
+				"          Time_zone as string,",
+				"          empresa as string,",
+				"          profissao as string,",
+				"          etnia as string,",
+				"          idioma as string,",
+				"          montadora as string,",
+				"          carro as string,",
+				"          ano as string,",
+				"          nascimento as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> SRCCRMFABRICIO",
+				"SRCCRMFABRICIO select(mapColumn(",
+				"          id,",
+				"          primeiro_nome,",
+				"          ultimo_nome,",
+				"          email,",
+				"          sexo,",
+				"          cidade,",
+				"          pais,",
+				"          codigo_pais,",
+				"          Time_zone,",
+				"          empresa,",
+				"          profissao,",
+				"          idioma,",
+				"          montadora,",
+				"          carro,",
+				"          ano,",
+				"          nascimento",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> SelecionarColunasFabricio",
+				"SelecionarColunasFabricio split(toInteger(ano) <= 1970,",
+				"     toInteger(ano) > 1970,",
+				"     disjoint: false) ~> splitcrmfabricio@(Ate1970, Apos1970)",
+				"splitcrmfabricio@Ate1970 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'parquet',",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> saidacrmpqfabricio",
+				"splitcrmfabricio@Apos1970 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> saidacrmcsvfabricio"
+			]
+		}
+	}
+}

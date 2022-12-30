@@ -1,0 +1,21 @@
+{
+	"name": "PQT_CIDADE_FABIO",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "synapse-solar-ws-WorkspaceDefaultStorage",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "bronze/CIDADE",
+				"fileSystem": "fabio"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

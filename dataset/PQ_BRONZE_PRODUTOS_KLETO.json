@@ -1,0 +1,24 @@
+{
+	"name": "PQ_BRONZE_PRODUTOS_KLETO",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "synapse-solar-ws-WorkspaceDefaultStorage",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Kleto/Bronze"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "bronze/PRODUTOS",
+				"fileSystem": "kleto"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

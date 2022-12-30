@@ -1,0 +1,20 @@
+{
+	"name": "4_SCRIPT_produto_maurilio",
+	"properties": {
+		"folder": {
+			"name": "SCRIPTS_TESTE"
+		},
+		"content": {
+			"query": "IF NOT EXISTS (SELECT * FROM sys.external_file_formats WHERE name = 'SynapseParquetFormat') \n\tCREATE EXTERNAL FILE FORMAT [SynapseParquetFormat] \n\tWITH ( FORMAT_TYPE = PARQUET)\nGO\n\nIF NOT EXISTS (SELECT * FROM sys.external_data_sources WHERE name = 'maurilio_adlstrnsolar_dfs_core_windows_net') \n\tCREATE EXTERNAL DATA SOURCE [maurilio_adlstrnsolar_dfs_core_windows_net] \n\tWITH (\n\t\tLOCATION = 'abfss://maurilio@adlstrnsolar.dfs.core.windows.net' \n\t)\nGO\n\nCREATE EXTERNAL TABLE BRONZE.D_PRODUTO (\n\t[ID_PROD] int,\n\t[NOME_PRODUTO] nvarchar(4000),\n\t[ID_CATEGORIA] int,\n\t[ID_UNIDADE] nvarchar(4000),\n\t[PRECO] numeric(10,2)\n\t)\n\tWITH (\n\tLOCATION = 'Bronze/PRODUTOS/**',\n\tDATA_SOURCE = [maurilio_adlstrnsolar_dfs_core_windows_net],\n\tFILE_FORMAT = [SynapseParquetFormat]\n\t)\nGO\n\n\nSELECT TOP 100 * FROM BRONZE.D_PRODUTO\nGO",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "DB_Maurilio",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

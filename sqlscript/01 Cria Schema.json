@@ -1,0 +1,20 @@
+{
+	"name": "01 Cria Schema",
+	"properties": {
+		"folder": {
+			"name": "Treinamento/02 Pool Dedicado"
+		},
+		"content": {
+			"query": "CREATE SCHEMA BRONZE\nGO\nCREATE SCHEMA SILVER\nGO\nCREATE SCHEMA GOLD",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "DW01",
+				"poolName": "DW01"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

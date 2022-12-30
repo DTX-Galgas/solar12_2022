@@ -1,0 +1,30 @@
+{
+	"name": "Pq_cliente_maurilio",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "synapse-solar-ws-WorkspaceDefaultStorage",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "Bronze/CLIENTE",
+				"fileSystem": "maurilio"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "ID_CATEGORIA",
+				"type": "INT32"
+			},
+			{
+				"name": "NOME_CATEGORIA",
+				"type": "UTF8"
+			}
+		]
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

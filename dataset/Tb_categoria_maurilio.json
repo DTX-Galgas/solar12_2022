@@ -1,0 +1,27 @@
+{
+	"name": "Tb_categoria_maurilio",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SqlServer1_maurilio",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [
+			{
+				"name": "ID_CATEGORIA",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "NOME_CATEGORIA",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "CATEGORIA"
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

@@ -1,0 +1,24 @@
+{
+	"name": "PQ_SILVER_CRM_KLETO",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "synapse-solar-ws-WorkspaceDefaultStorage",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Kleto/Silver"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "silver/CRM",
+				"fileSystem": "kleto"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

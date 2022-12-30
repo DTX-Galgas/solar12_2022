@@ -1,0 +1,38 @@
+{
+	"name": "PIPE_LOAD_CRM_DATA_FELIPE",
+	"properties": {
+		"activities": [
+			{
+				"name": "DFCARGACRMFELIPE",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "DFCARGACRMDATAFELIPE",
+						"type": "DataFlowReference"
+					},
+					"integrationRuntime": {
+						"referenceName": "IntegrationRuntime2",
+						"type": "IntegrationRuntimeReference"
+					},
+					"traceLevel": "Fine",
+					"runConcurrently": true
+				}
+			}
+		],
+		"folder": {
+			"name": "Felipe"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-12-28T16:17:59Z"
+	},
+	"type": "Microsoft.Synapse/workspaces/pipelines"
+}

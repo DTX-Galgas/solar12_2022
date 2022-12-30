@@ -1,0 +1,7 @@
+{
+	"name": "IR-OLTP",
+	"properties": {
+		"type": "SelfHosted",
+		"description": "Conn Note Andre"
+	}
+}

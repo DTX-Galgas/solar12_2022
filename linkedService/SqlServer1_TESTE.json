@@ -1,0 +1,17 @@
+{
+	"name": "SqlServer1_TESTE",
+	"type": "Microsoft.Synapse/workspaces/linkedservices",
+	"properties": {
+		"description": "TESTE",
+		"annotations": [],
+		"type": "SqlServer",
+		"typeProperties": {
+			"connectionString": "integrated security=False;data source=D09MY9QBR300797;initial catalog=TREINO;user id=treino",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI0N2I4ZTdjZS05YTI5LTRkZmEtOGMyNy00MDhmMmZhZjY2NjYiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "IR-OLTP",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

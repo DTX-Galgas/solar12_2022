@@ -1,0 +1,103 @@
+{
+	"name": "SRC_CRM_FABIO",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DS_CRM_FABIO",
+						"type": "DatasetReference"
+					},
+					"name": "SRCCRMFABIO"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "CRM_ATE_1990_FABIO",
+						"type": "DatasetReference"
+					},
+					"name": "SAIDACRMFABIO"
+				},
+				{
+					"dataset": {
+						"referenceName": "CRM_POS_1990_FABIO",
+						"type": "DatasetReference"
+					},
+					"name": "SAIDACRMFABIOV"
+				}
+			],
+			"transformations": [
+				{
+					"name": "SELECTCOLUMNSFABIO"
+				},
+				{
+					"name": "splitcrm"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          id as string,",
+				"          primeiro_nome as string,",
+				"          ultimo_nome as string,",
+				"          email as string,",
+				"          sexo as string,",
+				"          cidade as string,",
+				"          pais as string,",
+				"          codigo_pais as string,",
+				"          Time_zone as string,",
+				"          empresa as string,",
+				"          profissao as string,",
+				"          etnia as string,",
+				"          idioma as string,",
+				"          montadora as string,",
+				"          carro as string,",
+				"          ano as string,",
+				"          nascimento as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> SRCCRMFABIO",
+				"SRCCRMFABIO select(mapColumn(",
+				"          id,",
+				"          primeiro_nome,",
+				"          ultimo_nome,",
+				"          email,",
+				"          sexo,",
+				"          cidade,",
+				"          pais,",
+				"          codigo_pais,",
+				"          Time_zone,",
+				"          empresa,",
+				"          profissao,",
+				"          idioma,",
+				"          montadora,",
+				"          carro,",
+				"          ano,",
+				"          nascimento",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> SELECTCOLUMNSFABIO",
+				"SELECTCOLUMNSFABIO split(toInteger(ano)<=1990,",
+				"     toInteger(ano) >1990,",
+				"     disjoint: false) ~> splitcrm@(ate1990, apos1990)",
+				"splitcrm@ate1990 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'parquet',",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> SAIDACRMFABIO",
+				"splitcrm@apos1990 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> SAIDACRMFABIOV"
+			]
+		}
+	}
+}

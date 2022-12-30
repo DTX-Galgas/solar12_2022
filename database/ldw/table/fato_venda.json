@@ -1,0 +1,260 @@
+{
+	"name": "fato_venda",
+	"properties": {
+		"Name": "fato_venda",
+		"EntityType": "TABLE",
+		"TableType": "EXTERNAL",
+		"Namespace": {
+			"SchemaName": null,
+			"DatabaseName": "ldw",
+			"DatabaseId": null
+		},
+		"StorageDescriptor": {
+			"Distribution": null,
+			"Columns": [
+				{
+					"Name": "NUM_VENDA",
+					"Description": null,
+					"OriginDataTypeName": {
+						"TypeName": "int",
+						"IsComplexType": false,
+						"IsNullable": true,
+						"Length": 0,
+						"Precision": 0,
+						"Scale": 0,
+						"Properties": {
+							"HIVE_TYPE_STRING": "int"
+						}
+					}
+				},
+				{
+					"Name": "DATA_VENDA",
+					"Description": null,
+					"OriginDataTypeName": {
+						"TypeName": "timestamp",
+						"IsComplexType": false,
+						"IsNullable": true,
+						"Length": 0,
+						"Precision": 0,
+						"Scale": 0,
+						"Properties": {
+							"HIVE_TYPE_STRING": "timestamp"
+						}
+					}
+				},
+				{
+					"Name": "ID_CLIENTE",
+					"Description": null,
+					"OriginDataTypeName": {
+						"TypeName": "int",
+						"IsComplexType": false,
+						"IsNullable": true,
+						"Length": 0,
+						"Precision": 0,
+						"Scale": 0,
+						"Properties": {
+							"HIVE_TYPE_STRING": "int"
+						}
+					}
+				},
+				{
+					"Name": "STATUS",
+					"Description": null,
+					"OriginDataTypeName": {
+						"TypeName": "string",
+						"IsComplexType": false,
+						"IsNullable": true,
+						"Length": 0,
+						"Precision": 0,
+						"Scale": 0,
+						"Properties": {
+							"HIVE_TYPE_STRING": "string"
+						}
+					}
+				},
+				{
+					"Name": "ID_VENDEDOR",
+					"Description": null,
+					"OriginDataTypeName": {
+						"TypeName": "int",
+						"IsComplexType": false,
+						"IsNullable": true,
+						"Length": 0,
+						"Precision": 0,
+						"Scale": 0,
+						"Properties": {
+							"HIVE_TYPE_STRING": "int"
+						}
+					}
+				},
+				{
+					"Name": "NUM_SEQ",
+					"Description": null,
+					"OriginDataTypeName": {
+						"TypeName": "int",
+						"IsComplexType": false,
+						"IsNullable": true,
+						"Length": 0,
+						"Precision": 0,
+						"Scale": 0,
+						"Properties": {
+							"HIVE_TYPE_STRING": "int"
+						}
+					}
+				},
+				{
+					"Name": "ID_PROD",
+					"Description": null,
+					"OriginDataTypeName": {
+						"TypeName": "int",
+						"IsComplexType": false,
+						"IsNullable": true,
+						"Length": 0,
+						"Precision": 0,
+						"Scale": 0,
+						"Properties": {
+							"HIVE_TYPE_STRING": "int"
+						}
+					}
+				},
+				{
+					"Name": "QTDE",
+					"Description": null,
+					"OriginDataTypeName": {
+						"TypeName": "decimal",
+						"IsComplexType": false,
+						"IsNullable": true,
+						"Length": 0,
+						"Precision": 10,
+						"Scale": 2,
+						"Properties": {
+							"HIVE_TYPE_STRING": "decimal"
+						}
+					}
+				},
+				{
+					"Name": "VAL_UNIT",
+					"Description": null,
+					"OriginDataTypeName": {
+						"TypeName": "decimal",
+						"IsComplexType": false,
+						"IsNullable": true,
+						"Length": 0,
+						"Precision": 10,
+						"Scale": 2,
+						"Properties": {
+							"HIVE_TYPE_STRING": "decimal"
+						}
+					}
+				},
+				{
+					"Name": "VAL_TOTAL",
+					"Description": null,
+					"OriginDataTypeName": {
+						"TypeName": "decimal",
+						"IsComplexType": false,
+						"IsNullable": true,
+						"Length": 0,
+						"Precision": 10,
+						"Scale": 2,
+						"Properties": {
+							"HIVE_TYPE_STRING": "decimal"
+						}
+					}
+				},
+				{
+					"Name": "DATA_VENDA_CHAVE",
+					"Description": null,
+					"OriginDataTypeName": {
+						"TypeName": "int",
+						"IsComplexType": false,
+						"IsNullable": true,
+						"Length": 0,
+						"Precision": 0,
+						"Scale": 0,
+						"Properties": {
+							"HIVE_TYPE_STRING": "int"
+						}
+					}
+				},
+				{
+					"Name": "ANO",
+					"Description": null,
+					"OriginDataTypeName": {
+						"TypeName": "string",
+						"IsComplexType": false,
+						"IsNullable": true,
+						"Length": 0,
+						"Precision": 0,
+						"Scale": 0,
+						"Properties": {
+							"HIVE_TYPE_STRING": "string"
+						}
+					}
+				},
+				{
+					"Name": "MES",
+					"Description": null,
+					"OriginDataTypeName": {
+						"TypeName": "string",
+						"IsComplexType": false,
+						"IsNullable": true,
+						"Length": 0,
+						"Precision": 0,
+						"Scale": 0,
+						"Properties": {
+							"HIVE_TYPE_STRING": "string"
+						}
+					}
+				}
+			],
+			"ColumnSetEntityName": "dbc0e4f0-5353-4672-b64c-4a13a4195ae3",
+			"Format": {
+				"InputFormat": "org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat",
+				"OutputFormat": "org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat",
+				"FormatType": "parquet",
+				"SerializeLib": "org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe",
+				"Properties": {
+					"path": "abfss://treinamento@adlstrnsolar.dfs.core.windows.net/ldw/fato_venda",
+					"serialization.format": "1"
+				}
+			},
+			"Source": {
+				"Location": "abfss://treinamento@adlstrnsolar.dfs.core.windows.net/ldw/fato_venda",
+				"Properties": {
+					"LocationSetToDatabaseDefault": false
+				}
+			},
+			"Properties": {
+				"derivedModelAttributeInfo": "{\"attributeReferences\":{}}"
+			},
+			"Compressed": false,
+			"SerDeInfo": null,
+			"IsStoredAsSubdirectories": false
+		},
+		"Owner": "trusted-service-user",
+		"CreateTime": 1672328856,
+		"LastAccessTime": 0,
+		"Retention": 0,
+		"Temporary": false,
+		"IsRewriteEnabled": false,
+		"ViewOriginalText": null,
+		"ViewExpandedText": null,
+		"Origin": {
+			"Type": "SPARK"
+		},
+		"OriginObjectId": null,
+		"IsSharedEntity": false,
+		"PublishStatus": "PUBLISHED",
+		"Properties": {
+			"Transient_lastDdlTime": "1672328856",
+			"spark.sql.sources.schema": "{\"type\":\"struct\",\"fields\":[{\"name\":\"NUM_VENDA\",\"type\":\"integer\",\"nullable\":true,\"metadata\":{}},{\"name\":\"DATA_VENDA\",\"type\":\"timestamp\",\"nullable\":true,\"metadata\":{}},{\"name\":\"ID_CLIENTE\",\"type\":\"integer\",\"nullable\":true,\"metadata\":{}},{\"name\":\"STATUS\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"ID_VENDEDOR\",\"type\":\"integer\",\"nullable\":true,\"metadata\":{}},{\"name\":\"NUM_SEQ\",\"type\":\"integer\",\"nullable\":true,\"metadata\":{}},{\"name\":\"ID_PROD\",\"type\":\"integer\",\"nullable\":true,\"metadata\":{}},{\"name\":\"QTDE\",\"type\":\"decimal(10,2)\",\"nullable\":true,\"metadata\":{}},{\"name\":\"VAL_UNIT\",\"type\":\"decimal(10,2)\",\"nullable\":true,\"metadata\":{}},{\"name\":\"VAL_TOTAL\",\"type\":\"decimal(10,2)\",\"nullable\":true,\"metadata\":{}},{\"name\":\"DATA_VENDA_CHAVE\",\"type\":\"integer\",\"nullable\":true,\"metadata\":{}},{\"name\":\"ANO\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"MES\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}]}",
+			"spark.sql.sources.provider": "parquet",
+			"spark.sql.create.version": "3.2.2.5.1-75622951",
+			"PrimaryKeys": ""
+		},
+		"ObjectVersion": 1,
+		"ObjectId": "00f834b0-e86b-4e57-b6f9-58199ee0c906"
+	},
+	"type": "TABLE"
+}

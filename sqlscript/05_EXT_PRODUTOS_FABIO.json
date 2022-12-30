@@ -1,0 +1,20 @@
+{
+	"name": "05_EXT_PRODUTOS_FABIO",
+	"properties": {
+		"folder": {
+			"name": "fabio"
+		},
+		"content": {
+			"query": "IF NOT EXISTS (SELECT * FROM sys.external_file_formats WHERE name = 'SynapseParquetFormat') \n\tCREATE EXTERNAL FILE FORMAT [SynapseParquetFormat] \n\tWITH ( FORMAT_TYPE = PARQUET)\nGO\n\nIF NOT EXISTS (SELECT * FROM sys.external_data_sources WHERE name = 'fabio_adlstrnsolar_dfs_core_windows_net') \n\tCREATE EXTERNAL DATA SOURCE [fabio_adlstrnsolar_dfs_core_windows_net] \n\tWITH (\n\t\tLOCATION = 'abfss://fabio@adlstrnsolar.dfs.core.windows.net' \n\t)\nGO\n\nCREATE EXTERNAL TABLE BRONZE.D_PRODUTOS (\n\t[ID_PROD] int,\n\t[NOME_PRODUTO] nvarchar(4000),\n\t[ID_CATEGORIA] int,\n\t[ID_UNIDADE] nvarchar(4000),\n\t[PRECO] numeric(10,2)\n\t)\n\tWITH (\n\tLOCATION = 'bronze/PRODUTOS/**',\n\tDATA_SOURCE = [fabio_adlstrnsolar_dfs_core_windows_net],\n\tFILE_FORMAT = [SynapseParquetFormat]\n\t)\nGO\n\n\nSELECT TOP 100 * FROM BRONZE.D_PRODUTOS\nGO",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "dbfabio",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

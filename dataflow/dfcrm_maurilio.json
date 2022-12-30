@@ -1,0 +1,103 @@
+{
+	"name": "dfcrm_maurilio",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "dfcrm_maurilio",
+						"type": "DatasetReference"
+					},
+					"name": "dfcrmmaurilio"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "Pq_crmmenor1970_maurilio",
+						"type": "DatasetReference"
+					},
+					"name": "pqcrmmenor1970maurilio"
+				},
+				{
+					"dataset": {
+						"referenceName": "csvcrmmaior1970",
+						"type": "DatasetReference"
+					},
+					"name": "csvcrmmaior1970"
+				}
+			],
+			"transformations": [
+				{
+					"name": "selecaocolunas"
+				},
+				{
+					"name": "split1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          id as string,",
+				"          primeiro_nome as string,",
+				"          ultimo_nome as string,",
+				"          email as string,",
+				"          sexo as string,",
+				"          cidade as string,",
+				"          pais as string,",
+				"          codigo_pais as string,",
+				"          Time_zone as string,",
+				"          empresa as string,",
+				"          profissao as string,",
+				"          etnia as string,",
+				"          idioma as string,",
+				"          montadora as string,",
+				"          carro as string,",
+				"          ano as string,",
+				"          nascimento as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> dfcrmmaurilio",
+				"dfcrmmaurilio select(mapColumn(",
+				"          id,",
+				"          primeiro_nome,",
+				"          ultimo_nome,",
+				"          email,",
+				"          sexo,",
+				"          cidade,",
+				"          pais,",
+				"          codigo_pais,",
+				"          Time_zone,",
+				"          empresa,",
+				"          profissao,",
+				"          idioma,",
+				"          montadora,",
+				"          carro,",
+				"          ano,",
+				"          nascimento",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> selecaocolunas",
+				"selecaocolunas split(toInteger(ano) <= 1970,",
+				"     toInteger(ano) > 1970,",
+				"     disjoint: false) ~> split1@(filterano1970, maiorano1970)",
+				"split1@filterano1970 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'parquet',",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> pqcrmmenor1970maurilio",
+				"split1@maiorano1970 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> csvcrmmaior1970"
+			]
+		}
+	}
+}

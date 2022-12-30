@@ -1,0 +1,25 @@
+{
+	"name": "ldw",
+	"properties": {
+		"Name": "ldw",
+		"EntityType": "DATABASE",
+		"Origin": {
+			"Type": "SPARK"
+		},
+		"Properties": {
+			"IsSyMSCDMDatabase": true
+		},
+		"Source": {
+			"Provider": "ADLS",
+			"Location": "abfss://treinamento@adlstrnsolar.dfs.core.windows.net/ldw",
+			"Properties": {
+				"FormatType": "csv",
+				"LinkedServiceName": "synapse-solar-ws-WorkspaceDefaultStorage"
+			}
+		},
+		"PublishStatus": "PUBLISHED",
+		"ObjectVersion": 2,
+		"ObjectId": "ce65c80b-b876-44b2-a84e-a0c84db54047"
+	},
+	"type": "DATABASE"
+}

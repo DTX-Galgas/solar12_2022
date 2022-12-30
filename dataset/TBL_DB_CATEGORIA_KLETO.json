@@ -1,0 +1,30 @@
+{
+	"name": "TBL_DB_CATEGORIA_KLETO",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SqlServer1_kleto",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Kleto/DB"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [
+			{
+				"name": "ID_CATEGORIA",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "NOME_CATEGORIA",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "CATEGORIA"
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

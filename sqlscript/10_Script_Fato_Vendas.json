@@ -1,0 +1,20 @@
+{
+	"name": "10_Script_Fato_Vendas",
+	"properties": {
+		"folder": {
+			"name": "SQL_Script_Williams"
+		},
+		"content": {
+			"query": "CREATE VIEW GOLD.[VW_FATO_VENDAS]\n\tAS \n    SELECT A.NUM_VENDA,\n\t       A.DATA_VENDA,\n\t\t   A.ID_CLIENTE,\n\t\t   A.ID_VENDEDOR,\n\t\t   A.STATUS,\n\t\t   B.NUM_SEQ,\n\t\t   B.ID_PROD,\n\t\t   B.VAL_UNIT,\n\t\t   B.VAL_TOTAL\n\t\t   \tFROM bronze.D_VENDAS A\n\tINNER JOIN bronze.D_VENDAS_ITENS B\n\tON A.NUM_VENDA=B.NUM_VENDA\nGO\nSELECT * FROM GOLD.[VW_FATO_VENDAS]\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "williams",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

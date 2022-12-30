@@ -1,0 +1,20 @@
+{
+	"name": "10_FATO_VENDAS",
+	"properties": {
+		"folder": {
+			"name": "felipe"
+		},
+		"content": {
+			"query": "CREATE VIEW \n    GOLD.VW_FATO_VENDAS AS\n    SELECT\n        A.NUM_VENDA,\n        A.DATA_VENDA,\n        A.ID_CLIENTE,\n        A.ID_VENDEDOR,\n        A.STATUS,\n        B.NUM_SEQ,\n        B.ID_PROD,\n        B.VAL_UNIT,\n        B.VAL_TOTAL\n    FROM BRONZE.VENDAS A\n    INNER JOIN BRONZE.VENDAS_ITENS B\n    ON A.NUM_VENDA=B.NUM_VENDA\nGO",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "felipe",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

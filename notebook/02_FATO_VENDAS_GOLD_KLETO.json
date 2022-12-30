@@ -1,0 +1,265 @@
+{
+	"name": "02_FATO_VENDAS_GOLD_KLETO",
+	"properties": {
+		"folder": {
+			"name": "Kleto"
+		},
+		"nbformat": 4,
+		"nbformat_minor": 2,
+		"bigDataPool": {
+			"referenceName": "Sparkpool02",
+			"type": "BigDataPoolReference"
+		},
+		"sessionProperties": {
+			"driverMemory": "112g",
+			"driverCores": 16,
+			"executorMemory": "112g",
+			"executorCores": 16,
+			"numExecutors": 1,
+			"runAsWorkspaceSystemIdentity": false,
+			"conf": {
+				"spark.dynamicAllocation.enabled": "true",
+				"spark.dynamicAllocation.minExecutors": "1",
+				"spark.dynamicAllocation.maxExecutors": "4",
+				"spark.autotune.trackingId": "489de6c2-5ed6-4d06-80d1-edf541854f36"
+			}
+		},
+		"metadata": {
+			"saveOutput": true,
+			"synapse_widget": {
+				"version": "0.1"
+			},
+			"enableDebugMode": false,
+			"kernelspec": {
+				"name": "synapse_pyspark",
+				"display_name": "Synapse PySpark"
+			},
+			"language_info": {
+				"name": "python"
+			},
+			"a365ComputeOptions": {
+				"id": "/subscriptions/b10014a9-607b-44d2-be67-37f7422eb8f0/resourceGroups/rg-trn-solar-002/providers/Microsoft.Synapse/workspaces/synapse-solar-ws/bigDataPools/Sparkpool02",
+				"name": "Sparkpool02",
+				"type": "Spark",
+				"endpoint": "https://synapse-solar-ws.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/Sparkpool02",
+				"auth": {
+					"type": "AAD",
+					"authResource": "https://dev.azuresynapse.net",
+					"authHeader": null
+				},
+				"sparkVersion": "3.2",
+				"nodeCount": 10,
+				"cores": 16,
+				"memory": 112,
+				"extraHeader": null
+			},
+			"sessionKeepAliveTimeout": 30
+		},
+		"cells": [
+			{
+				"cell_type": "markdown",
+				"metadata": {
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"**CARGA FATO PARQUET\r\n",
+					"LE DATAFRAMES**"
+				]
+			},
+			{
+				"cell_type": "code",
+				"source": [
+					"dfvendas = spark.read.load('abfss://treinamento@adlstrnsolar.dfs.core.windows.net/silver/VENDAS/*.parquet', format='parquet')\r\n",
+					"dfvenda_itens = spark.read.load('abfss://treinamento@adlstrnsolar.dfs.core.windows.net/silver/VENDAS_ITENS/*.parquet', format='parquet')\r\n",
+					""
+				],
+				"execution_count": 15
+			},
+			{
+				"cell_type": "markdown",
+				"metadata": {
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"**JOIN DF VENDAS COM VENDAS ITENS**"
+				]
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"microsoft": {
+						"language": "python"
+					}
+				},
+				"source": [
+					"%%pyspark \r\n",
+					"from pyspark.sql.functions import to_timestamp,date_format\r\n",
+					"from pyspark.sql.functions import col\r\n",
+					"df_join_vendas = dfvendas.join(dfvenda_itens, dfvendas.NUM_VENDA == dfvenda_itens.NUM_VENDA)\\\r\n",
+					".select(dfvendas.NUM_VENDA,\\\r\n",
+					"dfvendas.DATA_VENDA,\\\r\n",
+					"dfvendas.ID_CLIENTE,\\\r\n",
+					"dfvendas.STATUS,\\\r\n",
+					"dfvendas.ID_VENDEDOR,\\\r\n",
+					"dfvenda_itens.NUM_SEQ,\\\r\n",
+					"dfvenda_itens.ID_PROD,\\\r\n",
+					"dfvenda_itens.QTDE,\\\r\n",
+					"dfvenda_itens.VAL_UNIT,\\\r\n",
+					"dfvenda_itens.VAL_TOTAL,\\\r\n",
+					"#,date_format('DATA_VENDA','yyyyMMDD').cast('Int').alias('DATA_VENDA_KEY')\\\r\n",
+					"#,date_format('DATA_VENDA','yyyyMMdd').cast('String').alias('DATA_VENDA_CHAVE')\\\r\n",
+					"date_format('DATA_VENDA','yyyyMMdd').cast('Int').alias('DATA_VENDA_CHAVE'),\\\r\n",
+					"date_format('DATA_VENDA','yyyy').alias('ANO'),\\\r\n",
+					"date_format('DATA_VENDA','MM').alias('MES')\\\r\n",
+					"#date_format('DATA_VENDA','dd').alias('DIA'),\\\r\n",
+					")\r\n",
+					""
+				],
+				"execution_count": 16
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"#verificando schema dp dataframe\r\n",
+					"df_join_vendas.schema"
+				],
+				"execution_count": 17
+			},
+			{
+				"cell_type": "markdown",
+				"metadata": {
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"**FILTRAR VENDAS STATUS \"N\"**"
+				]
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"microsoft": {
+						"language": "python"
+					}
+				},
+				"source": [
+					"%%pyspark\r\n",
+					"join_filtrado = df_join_vendas.filter(df_join_vendas.STATUS=='N')\r\n",
+					"##join_filtrado.show(10)"
+				],
+				"execution_count": 18
+			},
+			{
+				"cell_type": "markdown",
+				"metadata": {
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"**SALVAR ARQUIVO PARQUET PARTICIONADO ANO/MES**"
+				]
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"microsoft": {
+						"language": "python"
+					}
+				},
+				"source": [
+					"%%pyspark\r\n",
+					"##Escreve e salva arquivo Parquet particionado por ano\r\n",
+					"join_filtrado.write.partitionBy('ANO','MES').mode('overwrite').parquet(\"/gold/fato_vendas\")"
+				],
+				"execution_count": 19
+			},
+			{
+				"cell_type": "markdown",
+				"metadata": {
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"**SALVAR COMO TABELA SPARK**"
+				]
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"microsoft": {
+						"language": "python"
+					}
+				},
+				"source": [
+					"%%pyspark\r\n",
+					"join_filtrado.write.mode(\"overwrite\").saveAsTable(\"ldw.FATO_VENDA\")"
+				],
+				"execution_count": 20
+			}
+		]
+	}
+}

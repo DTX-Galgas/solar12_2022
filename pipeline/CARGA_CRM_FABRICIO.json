@@ -1,0 +1,37 @@
+{
+	"name": "CARGA_CRM_FABRICIO",
+	"properties": {
+		"activities": [
+			{
+				"name": "DFCARGACRMFABRICIO",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "CARGACRMFABRICIO",
+						"type": "DataFlowReference"
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "Fine"
+				}
+			}
+		],
+		"folder": {
+			"name": "Fabricio"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-12-28T15:38:00Z"
+	},
+	"type": "Microsoft.Synapse/workspaces/pipelines"
+}

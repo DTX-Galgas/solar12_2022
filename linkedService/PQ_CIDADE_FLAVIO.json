@@ -1,0 +1,17 @@
+{
+	"name": "PQ_CIDADE_FLAVIO",
+	"type": "Microsoft.Synapse/workspaces/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureFileStorage",
+		"typeProperties": {
+			"connectionString": "DefaultEndpointsProtocol=https;AccountName=adlstrnsolar;EndpointSuffix=core.windows.net;",
+			"fileShare": "",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI5Yzg1MmFkYy00YWFhLTQ5NDctODI1Zi03YTI3ZmI0ZjI3NDQiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "IR-OLTP",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

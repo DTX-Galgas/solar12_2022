@@ -1,0 +1,82 @@
+{
+	"name": "delta_vendas",
+	"properties": {
+		"Name": "delta_vendas",
+		"EntityType": "TABLE",
+		"TableType": "EXTERNAL",
+		"Namespace": {
+			"SchemaName": null,
+			"DatabaseName": "ldw",
+			"DatabaseId": null
+		},
+		"StorageDescriptor": {
+			"Distribution": null,
+			"Columns": [
+				{
+					"Name": "col",
+					"Description": "from deserializer",
+					"OriginDataTypeName": {
+						"TypeName": "array<string>",
+						"IsComplexType": true,
+						"IsNullable": true,
+						"Length": 0,
+						"Precision": 0,
+						"Scale": 0,
+						"Properties": {
+							"HIVE_TYPE_STRING": "array<string>"
+						}
+					}
+				}
+			],
+			"ColumnSetEntityName": "95a48096-7176-423c-bdf2-cfd3a0d9d404",
+			"Format": {
+				"InputFormat": "org.apache.hadoop.mapred.SequenceFileInputFormat",
+				"OutputFormat": "org.apache.hadoop.hive.ql.io.HiveSequenceFileOutputFormat",
+				"FormatType": "delta",
+				"SerializeLib": "org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe",
+				"Properties": {
+					"path": "abfss://treinamento@adlstrnsolar.dfs.core.windows.net/gold/delta_vendas",
+					"serialization.format": "1"
+				}
+			},
+			"Source": {
+				"Location": "abfss://treinamento@adlstrnsolar.dfs.core.windows.net/gold/delta_vendas",
+				"Properties": {
+					"LocationSetToDatabaseDefault": false
+				}
+			},
+			"Properties": {
+				"derivedModelAttributeInfo": "{\"attributeReferences\":{}}"
+			},
+			"Compressed": false,
+			"SerDeInfo": null,
+			"IsStoredAsSubdirectories": false
+		},
+		"Owner": "trusted-service-user",
+		"CreateTime": 1672413111,
+		"LastAccessTime": 0,
+		"Retention": 0,
+		"Temporary": false,
+		"IsRewriteEnabled": false,
+		"ViewOriginalText": null,
+		"ViewExpandedText": null,
+		"Origin": {
+			"Type": "SPARK"
+		},
+		"OriginObjectId": null,
+		"IsSharedEntity": false,
+		"PublishStatus": "PUBLISHED",
+		"Properties": {
+			"EXTERNAL": "TRUE",
+			"Transient_lastDdlTime": "1672413111",
+			"spark.sql.sources.schema": "{\"type\":\"struct\",\"fields\":[]}",
+			"spark.sql.partitionProvider": "catalog",
+			"spark.sql.sources.provider": "delta",
+			"spark.sql.create.version": "3.3.1.5.2-76471634",
+			"PrimaryKeys": ""
+		},
+		"ObjectVersion": 1,
+		"ObjectId": "b2feacfd-163d-4e7d-b6c3-1c0d0ec569f7"
+	},
+	"type": "TABLE"
+}

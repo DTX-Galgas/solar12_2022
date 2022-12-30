@@ -1,0 +1,20 @@
+{
+	"name": "09_et_vendedores_ariel",
+	"properties": {
+		"folder": {
+			"name": "Ariel"
+		},
+		"content": {
+			"query": "IF NOT EXISTS (SELECT * FROM sys.external_file_formats WHERE name = 'SynapseParquetFormat') \n\tCREATE EXTERNAL FILE FORMAT [SynapseParquetFormat] \n\tWITH ( FORMAT_TYPE = PARQUET)\nGO\n\nIF NOT EXISTS (SELECT * FROM sys.external_data_sources WHERE name = 'ariel_adlstrnsolar_dfs_core_windows_net') \n\tCREATE EXTERNAL DATA SOURCE [ariel_adlstrnsolar_dfs_core_windows_net] \n\tWITH (\n\t\tLOCATION = 'abfss://ariel@adlstrnsolar.dfs.core.windows.net' \n\t)\nGO\n\nCREATE EXTERNAL TABLE bronze.d_vendedores (\n\t[ID_VENDEDOR] int,\n\t[NOME_VENDEDOR] nvarchar(4000),\n\t[SALARIO] numeric(10,2)\n\t)\n\tWITH (\n\tLOCATION = 'bronze/Vendedores/**',\n\tDATA_SOURCE = [ariel_adlstrnsolar_dfs_core_windows_net],\n\tFILE_FORMAT = [SynapseParquetFormat]\n\t)\nGO\n\n\nSELECT TOP 100 * FROM bronze.d_vendedores\nGO",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "Ariel",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

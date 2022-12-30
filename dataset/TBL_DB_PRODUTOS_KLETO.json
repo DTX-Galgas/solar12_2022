@@ -1,0 +1,45 @@
+{
+	"name": "TBL_DB_PRODUTOS_KLETO",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SqlServer1_kleto",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Kleto/DB"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [
+			{
+				"name": "ID_PROD",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "NOME_PRODUTO",
+				"type": "varchar"
+			},
+			{
+				"name": "ID_CATEGORIA",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "ID_UNIDADE",
+				"type": "varchar"
+			},
+			{
+				"name": "PRECO",
+				"type": "decimal",
+				"precision": 10,
+				"scale": 2
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "PRODUTOS"
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

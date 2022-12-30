@@ -1,0 +1,20 @@
+{
+	"name": "01_cria_schema_maurilio",
+	"properties": {
+		"folder": {
+			"name": "SCRIPTS_TESTE"
+		},
+		"content": {
+			"query": "-- Criar schemas camadas medalha\nCREATE SCHEMA BRONZE\nGO\nCREATE SCHEMA SILVER\nGO\nCREATE SCHEMA GOLD\nGO",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "DB_Maurilio",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

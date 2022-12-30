@@ -1,0 +1,103 @@
+{
+	"name": "CARGACRMALICE",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "ARQ_CRM_ALICE",
+						"type": "DatasetReference"
+					},
+					"name": "SCRSOURCECRMALICE"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "dfcrmpqalice",
+						"type": "DatasetReference"
+					},
+					"name": "saidacrmpqalice"
+				},
+				{
+					"dataset": {
+						"referenceName": "aqcrmcsvalice",
+						"type": "DatasetReference"
+					},
+					"name": "saidacrmcsvalice"
+				}
+			],
+			"transformations": [
+				{
+					"name": "SelecionarColunasAlice"
+				},
+				{
+					"name": "splitcrmalice"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          id as string,",
+				"          primeiro_nome as string,",
+				"          ultimo_nome as string,",
+				"          email as string,",
+				"          sexo as string,",
+				"          cidade as string,",
+				"          pais as string,",
+				"          codigo_pais as string,",
+				"          Time_zone as string,",
+				"          empresa as string,",
+				"          profissao as string,",
+				"          etnia as string,",
+				"          idioma as string,",
+				"          montadora as string,",
+				"          carro as string,",
+				"          ano as string,",
+				"          nascimento as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> SCRSOURCECRMALICE",
+				"SCRSOURCECRMALICE select(mapColumn(",
+				"          id,",
+				"          primeiro_nome,",
+				"          ultimo_nome,",
+				"          email,",
+				"          sexo,",
+				"          cidade,",
+				"          pais,",
+				"          codigo_pais,",
+				"          Time_zone,",
+				"          empresa,",
+				"          profissao,",
+				"          idioma,",
+				"          montadora,",
+				"          carro,",
+				"          ano,",
+				"          nascimento",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> SelecionarColunasAlice",
+				"SelecionarColunasAlice split(toInteger(ano)<=1970,",
+				"     toInteger(ano)>1970,",
+				"     disjoint: false) ~> splitcrmalice@(ate1970, apos1970)",
+				"splitcrmalice@ate1970 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'parquet',",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> saidacrmpqalice",
+				"splitcrmalice@apos1970 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> saidacrmcsvalice"
+			]
+		}
+	}
+}

@@ -1,0 +1,20 @@
+{
+	"name": "13 CLS",
+	"properties": {
+		"folder": {
+			"name": "Treinamento/02 Pool Dedicado"
+		},
+		"content": {
+			"query": "/*\nref\nhttps://docs.microsoft.com/pt-br/azure/synapse-analytics/sql-data-warehouse/column-level-security?context=%2Fazure%2Fsynapse-analytics%2Fcontext%2Fcontext&view=sql-server-ver16\nSegurança a nivel de coluna\nSegurança de Nível de Coluna permite que os clientes controlem o acesso às colunas da tabela com \nbase no contexto de execução do usuário ou associação de grupo.\n*/\n\n--Crie a tabela Memboros com a coluna CPF usada para armazenar números de CADASTRO DE PESSOA FÍSICA.:\n\nCREATE TABLE membros\n  (membroID int IDENTITY,\n   Nome varchar(100) NULL,\n   CPF char(14) NOT NULL,\n   Sobrenome varchar(100) NOT NULL,\n   telefone varchar(12) NULL,\n   Email varchar(100) NULL);\n\ninsert into membros VALUES ('Andre','123','R','111','qaz@fox.com.br')\ninsert into membros VALUES ('Bruno','123','R','111','xyz@fox.com.br')\n--Cria usuarios para teste\n--Crie três contas de usuário que demonstrarão diferentes recursos de acesso.\n\nCREATE USER gerente WITHOUT LOGIN;  \nCREATE USER estagiario WITHOUT LOGIN;  \n\n--Permita que estagiario acesse todas as colunas, exceto a coluna CPF, que tem os dados confidenciais:\n\nGRANT SELECT ON membros(membroID, Nome, Sobrenome, telefone, Email) TO estagiario;\nGRANT SELECT ON membros TO gerente;\n\n--Teste estagiario\nEXECUTE AS USER = 'estagiario';  \n--SELECT * FROM dbo.membros;\nSELECT membroID, Nome, Sobrenome, telefone, Email FROM DBO.MEMBROS;\nREVERT; \n\n--Teste estagiario\nEXECUTE AS USER = 'gerente';  \nSELECT * FROM membros;\nREVERT; \n\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "DW01",
+				"poolName": "DW01"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

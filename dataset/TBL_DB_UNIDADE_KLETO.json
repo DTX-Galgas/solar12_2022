@@ -1,0 +1,29 @@
+{
+	"name": "TBL_DB_UNIDADE_KLETO",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SqlServer1_kleto",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Kleto/DB"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [
+			{
+				"name": "ID_UNIDADE",
+				"type": "varchar"
+			},
+			{
+				"name": "DESC_UNIDADE",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "UNIDADE"
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

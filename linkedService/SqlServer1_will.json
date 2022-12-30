@@ -1,0 +1,17 @@
+{
+	"name": "SqlServer1_will",
+	"type": "Microsoft.Synapse/workspaces/linkedservices",
+	"properties": {
+		"description": "treino",
+		"annotations": [],
+		"type": "SqlServer",
+		"typeProperties": {
+			"connectionString": "integrated security=False;data source=D09MY9QBR300797;initial catalog=treino;user id=treino",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiIyYjZhYmIyMi0wZmJiLTQyM2UtOTEyMy03ZTg2NTU5ZWZmYzYiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "IR-OLTP",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

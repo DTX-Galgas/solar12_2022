@@ -1,0 +1,34 @@
+{
+	"name": "TBL_DB_CIDADE_KLETO",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SqlServer1_kleto",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Kleto/DB"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [
+			{
+				"name": "ID_CIDADE",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "NOME_CIDADE",
+				"type": "varchar"
+			},
+			{
+				"name": "UF",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "CIDADE"
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

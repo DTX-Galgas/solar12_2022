@@ -1,0 +1,37 @@
+{
+	"name": "CRM_Williams",
+	"properties": {
+		"activities": [
+			{
+				"name": "CARGACRMWilliams",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "CARGACRMWILLIAMS",
+						"type": "DataFlowReference"
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "Fine"
+				}
+			}
+		],
+		"folder": {
+			"name": "Williams"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-12-28T15:41:12Z"
+	},
+	"type": "Microsoft.Synapse/workspaces/pipelines"
+}

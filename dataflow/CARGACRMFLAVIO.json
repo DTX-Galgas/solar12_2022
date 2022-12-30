@@ -1,0 +1,105 @@
+{
+	"name": "CARGACRMFLAVIO",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "ARQ_CRM_FLAVIO",
+						"type": "DatasetReference"
+					},
+					"name": "SRCCRMFLAVIO"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "SAIDA_PARQUET_FLAVIO",
+						"type": "DatasetReference"
+					},
+					"name": "SAIDAPARQUETFLAVIO"
+				},
+				{
+					"dataset": {
+						"referenceName": "SAIDA_CSV_FLAVIO",
+						"type": "DatasetReference"
+					},
+					"name": "sink2"
+				}
+			],
+			"transformations": [
+				{
+					"name": "SELECIONARCOLUNASFLAVIO"
+				},
+				{
+					"name": "SPLITCRMFLAVIO"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          id as string,",
+				"          primeiro_nome as string,",
+				"          ultimo_nome as string,",
+				"          email as string,",
+				"          sexo as string,",
+				"          cidade as string,",
+				"          pais as string,",
+				"          codigo_pais as string,",
+				"          Time_zone as string,",
+				"          empresa as string,",
+				"          profissao as string,",
+				"          etnia as string,",
+				"          idioma as string,",
+				"          montadora as string,",
+				"          carro as string,",
+				"          ano as string,",
+				"          nascimento as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> SRCCRMFLAVIO",
+				"SRCCRMFLAVIO select(mapColumn(",
+				"          id,",
+				"          primeiro_nome,",
+				"          ultimo_nome,",
+				"          email,",
+				"          sexo,",
+				"          cidade,",
+				"          pais,",
+				"          codigo_pais,",
+				"          Time_zone,",
+				"          empresa,",
+				"          profissao,",
+				"          idioma,",
+				"          montadora,",
+				"          carro,",
+				"          ano,",
+				"          nascimento",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> SELECIONARCOLUNASFLAVIO",
+				"SELECIONARCOLUNASFLAVIO split(toInteger( ano ) <= 1970,",
+				"     disjoint: false) ~> SPLITCRMFLAVIO@(ATE1970, APOS1970)",
+				"SPLITCRMFLAVIO@ATE1970 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'parquet',",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> SAIDAPARQUETFLAVIO",
+				"SPLITCRMFLAVIO@APOS1970 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          Column_1 as string",
+				"     ),",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink2"
+			]
+		}
+	}
+}

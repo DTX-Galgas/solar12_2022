@@ -1,0 +1,20 @@
+{
+	"name": "1_SCRIPT_categoria_maurilio",
+	"properties": {
+		"folder": {
+			"name": "SCRIPTS_TESTE"
+		},
+		"content": {
+			"query": "IF NOT EXISTS (SELECT * FROM sys.external_file_formats WHERE name = 'SynapseParquetFormat') \n\tCREATE EXTERNAL FILE FORMAT [SynapseParquetFormat] \n\tWITH ( FORMAT_TYPE = PARQUET)\nGO\n\nIF NOT EXISTS (SELECT * FROM sys.external_data_sources WHERE name = 'maurilio_adlstrnsolar_dfs_core_windows_net') \n\tCREATE EXTERNAL DATA SOURCE [maurilio_adlstrnsolar_dfs_core_windows_net] \n\tWITH (\n\t\tLOCATION = 'abfss://maurilio@adlstrnsolar.dfs.core.windows.net' \n\t)\nGO\n\nCREATE EXTERNAL TABLE BRONZE.D_CATEGORIA (\n\t[ID_CATEGORIA] int,\n\t[NOME_CATEGORIA] nvarchar(4000)\n\t)\n\tWITH (\n\tLOCATION = 'Bronze/CATEGORIA/**',\n\tDATA_SOURCE = [maurilio_adlstrnsolar_dfs_core_windows_net],\n\tFILE_FORMAT = [SynapseParquetFormat]\n\t)\nGO\n\n\nSELECT TOP 100 * FROM BRONZE.D_CATEGORIA\nGO",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "DB_Maurilio",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

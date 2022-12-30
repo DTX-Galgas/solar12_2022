@@ -1,0 +1,37 @@
+{
+	"name": "Carga_CRM_FLAVIO",
+	"properties": {
+		"activities": [
+			{
+				"name": "CARGA_CRM_FLAVIO",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "CARGACRMFLAVIO",
+						"type": "DataFlowReference"
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "Fine"
+				}
+			}
+		],
+		"folder": {
+			"name": "Flavio"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-12-28T15:36:38Z"
+	},
+	"type": "Microsoft.Synapse/workspaces/pipelines"
+}

@@ -1,0 +1,20 @@
+{
+	"name": "01_CRIA_SCHEMA_FABIO",
+	"properties": {
+		"folder": {
+			"name": "fabio"
+		},
+		"content": {
+			"query": "-- CRIAR SCHEMAS CAMADAS MEDALLION\nCREATE SCHEMA BRONZE\nGO\nCREATE SCHEMA SILVER\nGO\nCREATE SCHEMA GOLD\nGO",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "dbfabio",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

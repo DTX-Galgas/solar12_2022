@@ -1,0 +1,20 @@
+{
+	"name": "02_D_CATEGORIA_FELIPE",
+	"properties": {
+		"folder": {
+			"name": "felipe"
+		},
+		"content": {
+			"query": "IF NOT EXISTS (SELECT * FROM sys.external_file_formats WHERE name = 'SynapseParquetFormat') \n\tCREATE EXTERNAL FILE FORMAT [SynapseParquetFormat] \n\tWITH ( FORMAT_TYPE = PARQUET)\nGO\n\nIF NOT EXISTS (SELECT * FROM sys.external_data_sources WHERE name = 'felipe_adlstrnsolar_dfs_core_windows_net') \n\tCREATE EXTERNAL DATA SOURCE [felipe_adlstrnsolar_dfs_core_windows_net] \n\tWITH (\n\t\tLOCATION = 'abfss://felipe@adlstrnsolar.dfs.core.windows.net' \n\t)\nGO\n\nCREATE EXTERNAL TABLE bronze.CATEGORIA (\n\t[ID_CATEGORIA] int,\n\t[NOME_CATEGORIA] nvarchar(4000)\n\t)\n\tWITH (\n\tLOCATION = 'bronze/CATEGORIA/**',\n\tDATA_SOURCE = [felipe_adlstrnsolar_dfs_core_windows_net],\n\tFILE_FORMAT = [SynapseParquetFormat]\n\t)\nGO\n\n\nSELECT TOP 100 * FROM bronze.CATEGORIA\nGO",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "felipe",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
